@@ -150,7 +150,11 @@ class _AuthCardState extends State<AuthCard> {
     return TextFormField(
       enabled: _authMode == AuthMode.signup,
       decoration: const InputDecoration(
-          labelText: 'Xác nhận mật khẩu', prefixIcon: Icon(Icons.key)),
+          labelText: 'Xác nhận Mật khẩu',
+          prefixIcon: Icon(
+            Icons.key,
+            color: Colors.teal,
+          )),
       obscureText: true,
       validator: _authMode == AuthMode.signup
           ? (value) {
@@ -163,10 +167,32 @@ class _AuthCardState extends State<AuthCard> {
     );
   }
 
+  Widget _buildEmailField() {
+    return TextFormField(
+      decoration: const InputDecoration(
+          labelText: 'Vui lòng nhập Email',
+          prefixIcon: Icon(
+            Icons.email,
+            color: Colors.teal,
+          )),
+      keyboardType: TextInputType.emailAddress,
+      validator: (value) {
+        if (value!.isEmpty || !value.contains('@')) {
+          return 'Email không hợp lệ!';
+        }
+        return null;
+      },
+      onSaved: (value) {
+        _authData['email'] = value!;
+      },
+    );
+  }
+
   Widget _buildPasswordField() {
     return TextFormField(
       decoration: const InputDecoration(
-          labelText: 'Password', prefixIcon: Icon(Icons.key)),
+          labelText: 'Vui lòng nhập Mật khẩu',
+          prefixIcon: Icon(Icons.key, color: Colors.teal)),
       obscureText: true,
       controller: _passwordController,
       validator: (value) {
@@ -177,23 +203,6 @@ class _AuthCardState extends State<AuthCard> {
       },
       onSaved: (value) {
         _authData['password'] = value!;
-      },
-    );
-  }
-
-  Widget _buildEmailField() {
-    return TextFormField(
-      decoration: const InputDecoration(
-          labelText: 'E-Mail', prefixIcon: Icon(Icons.email)),
-      keyboardType: TextInputType.emailAddress,
-      validator: (value) {
-        if (value!.isEmpty || !value.contains('@')) {
-          return 'Email không hợp lệ!';
-        }
-        return null;
-      },
-      onSaved: (value) {
-        _authData['email'] = value!;
       },
     );
   }

@@ -13,7 +13,7 @@ class OrdersScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Đặt hàng'),
+        title: const Text('Lịch sử đặt hàng'),
       ),
       body: Consumer<OrdersManager>(
         builder: (ctx, ordersManager, child) {
